@@ -2,3 +2,9 @@
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
+
+
+@theme{
+    --breakpoint-desktop: 1000px;
+    --color-main: var(--color-green-500)
+}
