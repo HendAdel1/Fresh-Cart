@@ -1,6 +1,4 @@
-<div
-  class="w-full cursor-pointer px-3 py-4 border border-gray-200 rounded-md hover:shadow-md hover:border-main transition-all duration-200"
->
+<div [routerLink]="['/product-details', product._id, product.slug]" class="w-full cursor-pointer px-3 py-4 border border-gray-200 rounded-md hover:shadow-md hover:border-main transition-all duration-200">
   <img class="w-full" [src]="product.imageCover" alt="" />
   <span class="text-gray-500 text-sm">{{ product.category.name }}</span>
   <h2 class="text-lg capitalize mb-2 font-medium truncate">{{ product.title }}</h2>
