@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../core/services/product.service';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
 import { Product } from '../../core/models/data.interface';
 
 @Component({
@@ -12,9 +11,14 @@ import { Product } from '../../core/models/data.interface';
 })
 export class ProductDetailsComponent implements OnInit{
 
+  product: Product | null = null;
+  isLoading = false;
+
   
-  constructor (private productService: ProductService,
-    private route: ActivatedRoute
+  constructor (
+    private productService: ProductService,
+    private route: ActivatedRoute,
+    
   ){}
 
   ngOnInit(): void {
@@ -26,13 +30,19 @@ export class ProductDetailsComponent implements OnInit{
     })
   }
 
+
   getSpecificProduct(id: string){
+    this.isLoading = true;
+
     this.productService.getSpecificProduct(id).subscribe({
       next:(response) =>{
-
+        if(response.data){
+          this.product = response.data;
+            this.isLoading = false;
+        }
       },
       error: (error) => {
-
+            this.isLoading = false;
       }
     })
   }
