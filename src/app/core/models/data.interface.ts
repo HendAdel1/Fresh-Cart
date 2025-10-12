@@ -1,7 +1,12 @@
-export interface Response {
+export interface Response<T> {
   results: number
   metadata: Metadata
-  data: Product[]
+  data: T[]
+}
+export interface Response<T> {
+  results: number
+  metadata: Metadata
+  data: T[]
 }
 
 export interface Metadata {

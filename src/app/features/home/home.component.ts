@@ -1,7 +1,8 @@
+import { CategoryService } from './../../core/services/category.service';
 import { ProductService } from './../../core/services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
-import { Product } from '../../core/models/data.interface';
+import { Category, Product } from '../../core/models/data.interface';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -16,11 +17,14 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   skeletons = Array(10);
   products: Product[] = [];
-
-  constructor(private productService: ProductService) {}
+  categories: Category[] = [];
+  constructor(private productService: ProductService,
+    private categoryService: CategoryService,
+  ) {}
 
   ngOnInit(): void {
     this.getAllProducts();
+    this.getAllCatgories();
   }
 
   getAllProducts() {
@@ -37,6 +41,16 @@ export class HomeComponent implements OnInit {
         },
       });
     }, 1500);
+  }
+
+  getAllCatgories(){
+    this.categoryService.getCategories().subscribe({
+      next: (response) => {
+        this.categories = response.data;
+        console.log(response.data);
+        
+      }
+    })
   }
 
   customOptions: OwlOptions = {
@@ -60,7 +74,7 @@ export class HomeComponent implements OnInit {
         items: 3
       },
       940: {
-        items: 4
+        items: 7
       }
     },
     nav: false,

@@ -15,8 +15,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getAllProducts({ limit = 20, page = 1 }: PaginationParameter): Observable<Response> {
-    return this.http.get<Response>(`https://ecommerce.routemisr.com/api/v1/products?limit=${limit}&page=${page}`);
+  getAllProducts({ limit = 20, page = 1 }: PaginationParameter): Observable<Response<Product>> {
+    return this.http.get<Response<Product>>(`https://ecommerce.routemisr.com/api/v1/products?limit=${limit}&page=${page}`);
   }
 
   getSpecificProduct(id: string): Observable<{data: Product}>{
