@@ -1,1 +1,120 @@
-<p>register works!</p>
+<div class="min-h-screen flex flex-col justify-center p-4">
+    <div class="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
+        <div class="text-center mb-10">
+            <h2 class="font-bold text-4xl">Register</h2>
+        </div>
+
+        <form (ngSubmit)="register()" [formGroup]="registerForm">
+            <div class="space-y-6">
+                @for (field of fields; track $index) {
+                <div class="relative">
+                    <label [for]="'floating_' + field.name"
+                        class="text-slate-900 text-sm font-medium mb-2 block capitalize">{{ field.label }}</label>
+
+                    <input [class.!border-red-500]="
+              getControl(field.name)?.errors && getControl(field.name)?.touched
+            " [formControlName]="field.name" [name]="'floating_' + field.name" [id]="'floating_' + field.name"
+                        [type]="getInputType(field.name)"
+                        class="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-main"
+                        placeholder="Enter {{ field.label.toLowerCase() }}" />
+
+                    <!-- 👁️ Password visibility toggle -->
+                    @if (field.name === 'password' || field.name === 'confirmPassword') {
+                    <button type="button" (click)="togglePasswordVisibility(field.name)"
+                        class="absolute right-3 top-[38px] text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <i class="fa-solid" [class.fa-eye]="!passwordVisible[field.name]"
+                            [class.fa-eye-slash]="passwordVisible[field.name]"></i>
+                    </button>
+                    }
+
+                    <!-- ⚠️ Validation messages -->
+                    @if (getControl(field.name)?.touched) {
+                    <div class="text-red-600 text-xs mt-1">
+                        @switch (field.name) {
+
+                        <!-- ✅ Username / Email / Phone -->
+                        @default {
+                        @if (getControl(field.name)?.hasError('required')) {
+                        <p>{{ field.label }} is required.</p>
+                        }
+                        @if (getControl(field.name)?.hasError('minlength')) {
+                        <p>{{ field.label }} must be at least 3 characters long.</p>
+                        }
+                        @if (getControl(field.name)?.hasError('email')) {
+                        <p>Please enter a valid email address.</p>
+                        }
+                        @if (getControl(field.name)?.hasError('pattern') && field.name === 'phone') {
+                        <p>
+                            Please enter a valid Egyptian phone number (010, 011, 012, or
+                            015).
+                        </p>
+                        }
+
+                        @if (
+                        getControl(field.name)?.hasError('pattern') &&
+                        field.name !== 'phone'
+                        ) {
+                        <p>Invalid {{ field.label.toLowerCase() }} format.</p>
+                        }
+                        }
+
+                        <!-- ✅ Password -->
+                        @case ('password') {
+                        @if (getControl('password')?.hasError('required')) {
+                        <p>Password is required.</p>
+                        }
+                        @if (getControl('password')?.hasError('pattern')) {
+                        <div class="mt-1 text-xs text-red-600 p-3">
+                            <p class="font-medium mb-1">
+                                Password must meet the following requirements:
+                            </p>
+                            <ul class="list-disc list-inside text-red-600 space-y-1 text-xs">
+                                <li>
+                                    Start with a <span class="font-semibold">capital letter</span>
+                                </li>
+                                <li>
+                                    Contain only <span class="font-semibold">letters and numbers</span>
+                                </li>
+                                <li>
+                                    Be between <span class="font-semibold">6 to 11 characters</span>
+                                </li>
+                            </ul>
+                        </div>
+                        }
+                        }
+
+                        @case ('confirmPassword') {
+                        @if (getControl('confirmPassword')?.touched) {
+                        <div class="text-red-600 text-xs mt-1">
+                            @if (getControl('confirmPassword')?.hasError('required')) {
+                            <p>Confirm Password is required.</p>
+                            }
+                            @else if (registerForm.hasError('passwordMismatch')) {
+                            <p>Confirm Password and Password do not match.</p>
+                            }
+                        </div>
+                        }
+                        }
+
+
+                        }
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+
+            <div class="mt-12">
+                <button type="submit"
+                    class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-white bg-main hover:bg-main focus:outline-none cursor-pointer">
+                    Create an account
+                </button>
+            </div>
+
+            <p class="text-slate-600 text-sm mt-6 text-center">
+                Already have an account?
+                <a [routerLink]="'/login'" class="text-main font-medium hover:underline ml-1">Login here</a>
+            </p>
+        </form>
+    </div>
+</div>
