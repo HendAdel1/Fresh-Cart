@@ -87,7 +87,9 @@ handleSubmit() {
   this.authService.register(body).subscribe({
     next: (response) => {
       this.isLoading = false;
-      this.router.navigate(['/home'])
+      localStorage.setItem('token', response.token);
+      this.authService.decodedToken(response.token);
+      this.router.navigate(['/home']);
     },
     error: (error) => {
       this.isLoading = false;

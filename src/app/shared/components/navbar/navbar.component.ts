@@ -1,3 +1,4 @@
+import { AuthService, UserData } from './../../../core/services/auth.service';
 import { Component } from '@angular/core';
 import { FlowbiteService } from '../../../core/services/flowbite.service';
 import { initFlowbite } from 'flowbite';
@@ -12,6 +13,8 @@ import { RouterLinkActive } from "@angular/router";
 })
 export class NavbarComponent {
 
+  isLogin = false;
+
   pages: {title: string, path: string}[] = [
     {title: 'Home', path: 'home'},
     {title: 'Products', path: 'products'},
@@ -25,15 +28,26 @@ export class NavbarComponent {
     {title: 'Register', path: 'register'},
    ]
 
- constructor(private flowbiteService: FlowbiteService) {}
+ constructor(private flowbiteService: FlowbiteService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.flowbiteService.loadFlowbite((flowbite) => {
       initFlowbite();
     });
+
+    this.authService.userDataDecoded.subscribe({
+      next: (user)=>{
+        console.log(user, "navbar");
+        if(user !== null){
+          this.isLogin = true;
+        }else{
+          this.isLogin = false;
+        }
+      }
+    })
   }
 
   logOut(){
-
+    this.authService.logOut();
   }
 }

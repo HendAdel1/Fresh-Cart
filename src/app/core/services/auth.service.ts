@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { jwtDecode } from "jwt-decode";
+import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
+type DecodedUser = { id: string, name: string, role: string};
 export interface UserData {
   name: string;
   email: string;
@@ -19,13 +23,38 @@ export interface UserDataLogin {
   providedIn: 'root'
 })
 export class AuthService {
-    constructor(private http: HttpClient) { }
 
-    register(data: UserData): Observable<any>{
-      return this.http.post('https://ecommerce.routemisr.com/api/v1/auth/signup', data)
-    }
+  userDataDecoded = new BehaviorSubject<DecodedUser | null>(null);
 
-    login(data: UserDataLogin): Observable<any>{
-      return this.http.post('https://ecommerce.routemisr.com/api/v1/auth/signin', data)
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: any, private router: Router) {
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        this.decodedToken(token)
+      }
     }
+  }
+
+
+  register(data: UserData): Observable<any> {
+    return this.http.post('https://ecommerce.routemisr.com/api/v1/auth/signup', data)
+  }
+
+  login(data: UserDataLogin): Observable<any> {
+    return this.http.post('https://ecommerce.routemisr.com/api/v1/auth/signin', data)
+  }
+
+  decodedToken(token: string) {
+    const decoded = jwtDecode<DecodedUser>(token);
+    this.userDataDecoded.next(decoded);
+      return decoded;
+  }
+
+  logOut(){
+    localStorage.removeItem('token');
+    this.userDataDecoded.next(null);
+    this.router.navigate(['/login']);
+  }
 }

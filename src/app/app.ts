@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./shared/components/navbar/navbar.component";
 import { FooterComponent } from "./shared/components/footer/footer.component";
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,5 @@ import { FooterComponent } from "./shared/components/footer/footer.component";
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('e-commerce');
+  constructor(private authService: AuthService){}
 }

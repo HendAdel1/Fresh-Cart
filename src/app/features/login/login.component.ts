@@ -50,8 +50,32 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched();
       return;
     }
+    const values = this.loginForm.value;
+    this.login(values);
   }
 
+  login(value: any) {
+    this.isLoading = true;
+    this.errorMsg = "";
+
+    const body = {
+      email: value.email,
+      password: value.password,
+    };
+
+    this.authService.login(body).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        localStorage.setItem('token', response.token);
+        this.authService.decodedToken(response.token);
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.errorMsg = error?.error?.message || 'Something went wrong. Please try again.';
+      }
+    });
+  }
 
 
 }
