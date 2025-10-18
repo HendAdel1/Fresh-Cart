@@ -10,6 +10,11 @@ export interface UserData {
   phone: string;
 }
 
+export interface UserDataLogin {
+  email: string;
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,5 +23,9 @@ export class AuthService {
 
     register(data: UserData): Observable<any>{
       return this.http.post('https://ecommerce.routemisr.com/api/v1/auth/signup', data)
+    }
+
+    login(data: UserDataLogin): Observable<any>{
+      return this.http.post('https://ecommerce.routemisr.com/api/v1/auth/signin', data)
     }
 }
