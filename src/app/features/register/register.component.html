@@ -4,7 +4,7 @@
             <h2 class="font-bold text-4xl">Register</h2>
         </div>
 
-        <form (ngSubmit)="register()" [formGroup]="registerForm">
+        <form (ngSubmit)="handleSubmit()" [formGroup]="registerForm">
             <div class="space-y-6">
                 @for (field of fields; track $index) {
                 <div class="relative">
@@ -104,13 +104,24 @@
                 }
             </div>
 
+
+            @if (errorMsg) {
+            <div class="mt-1 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                role="alert">
+                <span class="font-medium">{{errorMsg}}</span>
+            </div>
+            }
+
             <div class="mt-12">
-                <button type="submit"
-                    class="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-white bg-main hover:bg-main focus:outline-none cursor-pointer">
+                <button [disabled]="isLoading" type="submit"
+                    class="disabled:bg-main/50 w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-white bg-main hover:bg-main focus:outline-none cursor-pointer">
+                    @if (isLoading) {
+                    Loading...
+                    }@else {
                     Create an account
+                    }
                 </button>
             </div>
-
             <p class="text-slate-600 text-sm mt-6 text-center">
                 Already have an account?
                 <a [routerLink]="'/login'" class="text-main font-medium hover:underline ml-1">Login here</a>

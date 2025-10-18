@@ -1,7 +1,9 @@
+import { AuthService, UserData } from './../../core/services/auth.service';
 import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import { CommonModule } from "@angular/common";
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   imports: [ReactiveFormsModule, RouterLink, CommonModule],
@@ -9,6 +11,10 @@ import { CommonModule } from "@angular/common";
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+
+  isLoading = false;
+  errorMsg = ""
+
   fields = [
     { name: 'userName', label: 'Username', type: 'text' },
     { name: 'email', label: 'Email', type: 'email' },
@@ -16,6 +22,8 @@ export class RegisterComponent {
     { name: 'confirmPassword', label: 'Confirm Password', type: 'password' },
     { name: 'phone', label: 'Phone', type: 'number' },
   ];
+
+  constructor(private authService: AuthService, private router: Router){}
 
   passwordVisible: Record<string, boolean> = {
     password: false,
@@ -55,10 +63,37 @@ export class RegisterComponent {
     return password === confirmPassword ? null : { passwordMismatch: true };
   };
 
-  register() {
-    if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched();
-      return;
-    }
+handleSubmit() {
+  if (this.registerForm.invalid) {
+    this.registerForm.markAllAsTouched();
+    return;
   }
+
+  const values = this.registerForm.value;
+  this.register(values);
+}
+
+ register(value: any) {
+  this.isLoading = true;
+  this.errorMsg = "";
+
+  const body = {
+    name: value.userName,
+    email: value.email,
+    password: value.password,
+    rePassword: value.confirmPassword,
+    phone: value.phone,
+  };
+
+  this.authService.register(body).subscribe({
+    next: (response) => {
+      this.isLoading = false;
+      this.router.navigate(['/home'])
+    },
+    error: (error) => {
+      this.isLoading = false;
+      this.errorMsg = error?.error?.message || 'Something went wrong. Please try again.';
+    }
+  });
+}
 }
