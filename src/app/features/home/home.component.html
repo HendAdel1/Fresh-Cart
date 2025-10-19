@@ -2,7 +2,7 @@
 
     @for (category of categories; track category._id) {
       <ng-template carouselSlide [id]="category._id">
-        <div class="m-4 rounded-md hover:shadow-md cursor-pointer pb-3 border border-gray-200 hover:border-main transition-all duration-200">
+        <div class="mx-4 mt-4 rounded-md hover:shadow-md cursor-pointer pb-3 border border-gray-200 hover:border-main transition-all duration-200">
             <img class="h-40 object-cover object-top mb-2 rounded-t-md" [src]="category.image" [alt]="category.name" [title]="category.name">
             <p class="text-center font-medium">{{ category.name }}</p>
         </div>
@@ -12,7 +12,7 @@
   </owl-carousel-o>
 
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-10">
     @if (isLoading) {
         @for (item of skeletons; track $index) {
             <div class="animate-pulse">
