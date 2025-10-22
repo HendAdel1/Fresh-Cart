@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -39,11 +40,11 @@ export class AuthService {
 
 
   register(data: UserData): Observable<any> {
-    return this.http.post('https://ecommerce.routemisr.com/api/v1/auth/signup', data)
+    return this.http.post(`${environment.baseUrl}auth/signup`, data)
   }
 
   login(data: UserDataLogin): Observable<any> {
-    return this.http.post('https://ecommerce.routemisr.com/api/v1/auth/signin', data)
+    return this.http.post(`${environment.baseUrl}auth/signin`, data)
   }
 
   decodedToken(token: string) {
