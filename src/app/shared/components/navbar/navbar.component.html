@@ -23,15 +23,17 @@
       </ul>
 
       <ul class="ml-auto font-medium flex flex-col mt-4 border border-gray-100 rounded-lg desktop:flex-row desktop:space-x-8 rtl:space-x-reverse desktop:mt-0 desktop:border-0  dark:bg-gray-800 desktop:dark:bg-gray-900 dark:border-gray-700">
-
-          <li class="flex items-center space-x-3">
+          <!-- <li class="flex items-center space-x-3">
             <a href="https://facebook.com"><i class="fa fa-brands fa-facebook"></i></a>
             <a href="https://twitter.com"><i class="fa fa-brands fa-twitter"></i></a>
             <a href="https://youtube.com"><i class="fa fa-brands fa-youtube"></i></a>
             <a href="https://linkedin.com"><i class="fa fa-brands fa-linkedin"></i></a>
-        </li>
+        </li> -->
         
-        
+        @if(isLogin){
+          <a routerLink="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        }
+         
        @if(!isLogin){
          @for (page of authPages; track $index) {
         <li>

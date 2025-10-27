@@ -1,5 +1,6 @@
-<div [routerLink]="['/product-details', product._id, product.slug]" class="w-full cursor-pointer px-3 py-4 border border-gray-200 rounded-md hover:shadow-md hover:border-main transition-all duration-200">
-  <img class="w-full" [src]="product.imageCover" alt="" />
+<div class="w-full cursor-pointer px-3 py-4 border border-gray-200 rounded-md hover:shadow-md hover:border-main transition-all duration-200">
+<div class="" [routerLink]="['/product-details', product._id, product.slug]">
+    <img class="w-full" [src]="product.imageCover" alt="" />
   <span class="text-gray-500 text-sm">{{ product.category.name }}</span>
   <h2 class="text-lg capitalize mb-2 font-medium truncate">{{ product.title }}</h2>
   <div class="mb-2">
@@ -10,8 +11,9 @@
     <i class="fa fa-star text-yellow-400 text-sm me-2"></i>
     <span class="text-gray-500 text-sm">{{ product.ratingsAverage }}</span>
   </div>
-  <div class="flex justify-between items-center">
+</div>
+  <div  class="flex justify-between items-center">
     <span class="font-medium">{{ product.price }}EGP</span>
-    <button class="rounded px-3 py-1 bg-main text-white text-sm cursor-pointer font-medium hover:bg-green-600 transition-all duration-200">Add</button>
+    <button (click)="addProductToCart(product.id)" class="rounded px-3 py-1 bg-main text-white text-sm cursor-pointer font-medium hover:bg-green-600 transition-all duration-200">Add</button>
   </div>
 </div>

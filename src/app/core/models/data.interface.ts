@@ -58,3 +58,25 @@ export interface Brand {
   slug: string
   image: string
 }
+
+  export interface CartResponse{
+    status: string
+    numOfCartItems: number
+    cartId: string
+    data: Data
+    message?: string;
+  }
+
+  export interface Data{
+    _id: string
+    userId: string
+    products: ProductCart[]
+    totalCartPrice: number
+  }
+
+  export interface ProductCart{
+    count: number
+    _id: string
+    product: Product
+    price: number
+  }

@@ -20,7 +20,6 @@ export class NavbarComponent {
     {title: 'Products', path: 'products'},
     {title: 'Categories', path: 'categories'},
     {title: 'Brands', path: 'brands'},
-    {title: 'Cart', path: 'cart'},
   ]
 
    authPages: {title: string, path: string}[] = [

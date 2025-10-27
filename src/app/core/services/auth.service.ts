@@ -40,11 +40,11 @@ export class AuthService {
 
 
   register(data: UserData): Observable<any> {
-    return this.http.post(`${environment.baseUrl}auth/signup`, data)
+    return this.http.post(`${environment.baseUrl}/auth/signup`, data)
   }
 
   login(data: UserDataLogin): Observable<any> {
-    return this.http.post(`${environment.baseUrl}auth/signin`, data)
+    return this.http.post(`${environment.baseUrl}/auth/signin`, data)
   }
 
   decodedToken(token: string) {

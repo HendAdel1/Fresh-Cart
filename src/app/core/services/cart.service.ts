@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { CartResponse } from '../models/data.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class CartService {
   
   constructor(private http: HttpClient) { }
 
-  addProductToCart(productId: string): Observable<any>{
-    return this.http.post(`${environment.baseUrl}/cart`,{productId},{
+  addProductToCart(productId: string): Observable<CartResponse>{
+    return this.http.post<CartResponse>(`${environment.baseUrl}/cart`,{productId},{
       headers: {
         token: localStorage?.getItem('token') || '',
       }
@@ -26,8 +27,8 @@ export class CartService {
     })
   }
 
-  deleteProduct(productId: string): Observable<any>{
-    return this.http.delete(`${environment.baseUrl}/cart/${productId}`,{
+  deleteProduct(productId: string): Observable<CartResponse>{
+    return this.http.delete<CartResponse>(`${environment.baseUrl}/cart/${productId}`,{
       headers: {
         token: localStorage?.getItem('token') || '',
       }
@@ -40,5 +41,13 @@ export class CartService {
         token: localStorage?.getItem('token') || '',
       }
     })
-  }
+   }
+
+   getUserCart(): Observable<CartResponse>{
+    return this.http.get<CartResponse>(`${environment.baseUrl}/cart`,{
+      headers: {
+        token: localStorage?.getItem('token') || '',
+      }
+    })
+   }
 }
