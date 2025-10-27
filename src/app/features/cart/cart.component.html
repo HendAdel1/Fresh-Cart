@@ -107,14 +107,13 @@
                     <span>{{ cartData.data.totalCartPrice | currency:'EGP' }}</span>
                 </div>
 
-                <button (click)="checkoutSession()"
+                <button (click)="isAddressFormOpen = true"
                     class="cursor-pointer w-full mt-6 bg-main hover:bg-green-600 text-white py-3 rounded-lg font-medium transition-all duration-200">
                     Proceed to Checkout
                 </button>
             </div>
         </div>
     </div>
-
 
     } @else {
     <div class="flex flex-col items-center justify-center">
@@ -126,4 +125,30 @@
         </a>
     </div>
     }
+</div>
+
+
+
+<!--  -->
+<div [class.flex]="isAddressFormOpen" class="hidden fixed inset-0 bg-black/70  justify-center items-center">
+    <form (ngSubmit)="checkoutSession()" class="max-w-3/4 w-96 bg-white p-4 rounded">
+        <h2 class="text-2xl font-medium mb-2">Address Form</h2>
+    <div class="mb-5">
+        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your details</label>
+        <input formControlName="details" type="text" id="details" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-main focus:border-main block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-main dark:focus:border-main dark:shadow-xs-light" placeholder="details"  />
+    </div>
+
+    <div class="mb-5">
+        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your phone</label>
+        <input formControlName="phone" type="tel" id="phone" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-main focus:border-main block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-main dark:focus:border-main dark:shadow-xs-light" placeholder="phone"  />
+    </div>
+
+    <div class="mb-5">
+        <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your city</label>
+        <input formControlName="city" type="text" id="city" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-main focus:border-main block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-main dark:focus:border-main dark:shadow-xs-light" placeholder="city"  />
+    </div>
+
+      <button type="submit" class="text-white bg-main hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
+
+    </form>
 </div>

@@ -4,10 +4,11 @@ import { RouterLink } from "@angular/router";
 import { CartService } from '../../core/services/cart.service';
 import { CartResponse, ProductCart } from '../../core/models/data.interface';
 import { CurrencyPipe } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, ReactiveFormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -15,7 +16,14 @@ export class CartComponent implements OnInit{
   isLoading = false;
   cartData: CartResponse | null = null;
   updateLoading = false;
-  currentIndex: number = -1; 
+  currentIndex: number = -1;
+  isAddressFormOpen = false;
+
+  addressForm = new FormGroup({
+    details: new FormControl('', Validators.required),
+    phone: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+  })
   private cartService = inject(CartService);
   private toastr = inject(ToastrService)
 
@@ -77,8 +85,15 @@ export class CartComponent implements OnInit{
 
   checkoutSession(){
     if(!this.cartData?.cartId) return; 
-
-    this.cartService.checkoutSession(this.cartData?.cartId).subscribe({
+    if(this.addressForm.invalid){
+      this.addressForm.markAllAsTouched();
+       return; 
+    }
+    this.cartService.checkoutSession(this.cartData?.cartId, {
+        details: this.addressForm.value.details!,
+          phone: this.addressForm.value.phone!,
+          city: this.addressForm.value.city!,
+    }).subscribe({
         next: (res) => {
         this.cartData = null;
         window.location.href = res.session.url;

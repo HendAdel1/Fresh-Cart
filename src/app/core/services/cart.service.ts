@@ -51,14 +51,10 @@ export class CartService {
     })
    }
 
-   checkoutSession(cart_id: string): Observable<{session : {url: string}}>{
+   checkoutSession(cart_id: string, shippingAddress: {details: string, phone: string, city: string}): Observable<{session : {url: string}}>{
     return this.http.post<{session : {url: string}}>(`${environment.baseUrl}/orders/checkout-session/${cart_id}?url=${environment.frontUrl}`,
       {
-        shippingAddress: {
-          details: 'details',
-          phone: '0123456789',
-          city: 'cairo',
-        },
+        shippingAddress: shippingAddress
       },
       {
       headers: {
