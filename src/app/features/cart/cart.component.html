@@ -107,8 +107,8 @@
                     <span>{{ cartData.data.totalCartPrice | currency:'EGP' }}</span>
                 </div>
 
-                <button
-                    class="w-full mt-6 bg-main hover:bg-green-600 text-white py-3 rounded-lg font-medium transition-all duration-200">
+                <button (click)="checkoutSession()"
+                    class="cursor-pointer w-full mt-6 bg-main hover:bg-green-600 text-white py-3 rounded-lg font-medium transition-all duration-200">
                     Proceed to Checkout
                 </button>
             </div>

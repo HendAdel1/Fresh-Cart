@@ -75,4 +75,19 @@ export class CartComponent implements OnInit{
     })
   }
 
+  checkoutSession(){
+    if(!this.cartData?.cartId) return; 
+
+    this.cartService.checkoutSession(this.cartData?.cartId).subscribe({
+        next: (res) => {
+        this.cartData = null;
+        window.location.href = res.session.url;
+      },
+      error: (err) => {
+        this.toastr.error(err.message);
+      }
+    })
+    
+  }
+
 }

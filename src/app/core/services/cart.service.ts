@@ -50,4 +50,29 @@ export class CartService {
       }
     })
    }
+
+   checkoutSession(cart_id: string): Observable<{session : {url: string}}>{
+    return this.http.post<{session : {url: string}}>(`${environment.baseUrl}/orders/checkout-session/${cart_id}?url=${environment.frontUrl}`,
+      {
+        shippingAddress: {
+          details: 'details',
+          phone: '0123456789',
+          city: 'cairo',
+        },
+      },
+      {
+      headers: {
+        token: localStorage?.getItem('token') || '',
+      }
+    })
+   }
+
+allUserOrders(userId: string): Observable<any> {
+  return this.http.get(`${environment.baseUrl}/orders/user/${userId}`, {
+    headers: {
+      token: localStorage?.getItem('token') || '',
+    },
+  });
+}
+
 }
