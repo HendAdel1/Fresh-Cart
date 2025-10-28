@@ -1,1 +1,5 @@
-<p>global-loading works!</p>
+@if(this.loaderService.isLoading();){
+<div class="layer fixed inset-0 bg-gray-900/50 flex justify-center items-center z-50">
+    <i class="fa fa-spin fa-spinner fa-4x text-white"></i>
+</div>
+}

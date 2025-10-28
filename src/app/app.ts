@@ -5,10 +5,11 @@ import { FooterComponent } from "./shared/components/footer/footer.component";
 import { AuthService } from './core/services/auth.service';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
+import { GlobalLoadingComponent } from "./shared/components/global-loading/global-loading.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, GlobalLoadingComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
