@@ -1,7 +1,7 @@
 <section class="bg-white py-5 antialiased dark:bg-gray-900 ">
     <div class="flex justify-between mx-auto max-w-screen-xl px-4 2xl:px-0">
-        @if (cartData?.data?.products?.length == 0) {
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shopping Cart</h2>
+        @if (cartData && cartData.data.products.length > 0) {
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">{{ 'cart.title' | translate }}</h2>
 
         }
     </div>
@@ -34,7 +34,7 @@
                         <button (click)="deleteProduct(item.product._id)"
                             class="block text-red-600 font-medium text-sm hover:underline mt-2 cursor-pointer">
                             <i class="fa fa-solid fa-close"></i>
-                            Remove
+                            {{ 'cart.remove' | translate }}
                         </button>
                     </div>
                 </div>
@@ -83,33 +83,33 @@
             }
             @if(cartData.numOfCartItems){
             <button (click)="clearCart()"
-                class="bg-red-500 rounded text-white- px-4 py-2 cursor-pointer hover:bg-red-600">Clear</button>
+                class="bg-red-500 rounded text-white- px-4 py-2 cursor-pointer hover:bg-red-600">{{ 'cart.clear' | translate }}</button>
             }
         </div>
 
         <!--  Summary -->
         <div class="w-full lg:w-1/3">
             <div class="bg-gray-50 shadow-md rounded-xl p-6 border border-gray-200">
-                <h2 class="text-2xl font-bold mb-4">Order Summary</h2>
+                <h2 class="text-2xl font-bold mb-4">{{ 'cart.orderSummary' | translate }}</h2>
 
                 <div class="flex justify-between mb-2 text-gray-700">
-                    <span>Subtotal</span>
+                    <span>{{ 'cart.subtotal' | translate }}</span>
                     <span>{{ cartData.data.totalCartPrice | currency:'EGP' }}</span>
                 </div>
 
                 <div class="flex justify-between mb-2 text-gray-700">
-                    <span>Shipping</span>
-                    <span>Free</span>
+                    <span>{{ 'cart.shipping' | translate }}</span>
+                    <span>{{ 'cart.shippingFree' | translate }}</span>
                 </div>
 
                 <div class="flex justify-between text-lg font-semibold border-t border-gray-200 pt-3">
-                    <span>Total</span>
+                    <span>{{ 'cart.total' | translate }}</span>
                     <span>{{ cartData.data.totalCartPrice | currency:'EGP' }}</span>
                 </div>
 
                 <button (click)="isAddressFormOpen = true"
                     class="cursor-pointer w-full mt-6 bg-main hover:bg-green-600 text-white py-3 rounded-lg font-medium transition-all duration-200">
-                    Proceed to Checkout
+                    {{ 'cart.proceedToCheckout' | translate }}
                 </button>
             </div>
         </div>
@@ -118,10 +118,10 @@
     } @else {
     <div class="flex flex-col items-center justify-center">
         <img src="images/empty-cart.png" alt="Empty cart" class="w-50 mb-6" />
-        <h3 class="text-xl font-semibold text-gray-700 mb-2">Your cart is empty</h3>
-        <p class="text-gray-500 mb-4">Looks like you haven't added any items yet.</p>
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">{{ 'cart.emptyTitle' | translate }}</h3>
+        <p class="text-gray-500 mb-4">{{ 'cart.emptyDescription' | translate }}</p>
         <a routerLink="/products" class="bg-main text-white px-5 py-2 rounded-lg hover:bg-green-600 transition">
-            Continue Shopping
+            {{ 'cart.continueShopping' | translate }}
         </a>
     </div>
     }
@@ -132,23 +132,23 @@
 <!--  -->
 <div [class.flex]="isAddressFormOpen" class="hidden fixed inset-0 bg-black/70  justify-center items-center">
     <form (ngSubmit)="checkoutSession()" class="max-w-3/4 w-96 bg-white p-4 rounded">
-        <h2 class="text-2xl font-medium mb-2">Address Form</h2>
+        <h2 class="text-2xl font-medium mb-2">{{ 'cart.addressForm' | translate }}</h2>
     <div class="mb-5">
-        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your details</label>
+        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ 'cart.yourDetails' | translate }}</label>
         <input formControlName="details" type="text" id="details" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-main focus:border-main block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-main dark:focus:border-main dark:shadow-xs-light" placeholder="details"  />
     </div>
 
     <div class="mb-5">
-        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your phone</label>
+        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ 'cart.yourPhone' | translate }}</label>
         <input formControlName="phone" type="tel" id="phone" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-main focus:border-main block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-main dark:focus:border-main dark:shadow-xs-light" placeholder="phone"  />
     </div>
 
     <div class="mb-5">
-        <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your city</label>
+        <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ 'cart.yourCity' | translate }}</label>
         <input formControlName="city" type="text" id="city" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-main focus:border-main block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-main dark:focus:border-main dark:shadow-xs-light" placeholder="city"  />
     </div>
 
-      <button type="submit" class="text-white bg-main hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
+      <button type="submit" class="text-white bg-main hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ 'cart.submit' | translate }}</button>
 
     </form>
 </div>

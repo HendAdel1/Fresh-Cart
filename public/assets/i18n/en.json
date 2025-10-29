@@ -1,0 +1,42 @@
+{
+  "common": {
+    "ar": "arabic",
+    "en": "english",
+    "home": "Home",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "navbar": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "cart": "Cart",
+    "brands": "Brands",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+ "cart": {
+    "title": "Shopping Cart",
+    "remove": "Remove",
+    "clear": "Clear",
+    "each": "each",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "shippingFree": "Free",
+    "total": "Total",
+    "proceedToCheckout": "Proceed to Checkout",
+    "emptyTitle": "Your cart is empty",
+    "emptyDescription": "Looks like you haven't added any items yet.",
+    "continueShopping": "Continue Shopping",
+    "addressForm": "Address Form",
+    "yourDetails": "Your details",
+    "yourPhone": "Your phone",
+    "yourCity": "Your city",
+    "submit": "Submit"
+  }
+}

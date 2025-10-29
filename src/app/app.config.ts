@@ -8,9 +8,21 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { headerInterceptor } from './core/interceptors/header-interceptor';
 import { loaderInterceptor } from './core/interceptors/loader-interceptor';
+import {provideTranslateService, provideTranslateLoader} from "@ngx-translate/core";
+import {provideTranslateHttpLoader} from "@ngx-translate/http-loader";
 
 export const appConfig: ApplicationConfig = {
   providers: [
+  provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(),
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: '/assets/i18n/',
+        suffix: '.json'
+      }),
+      // fallbackLang: 'en',
+      lang: 'en'
+    }),
     provideHttpClient(withFetch(), withInterceptors([headerInterceptor, loaderInterceptor])),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),

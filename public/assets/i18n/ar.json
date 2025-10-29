@@ -1,0 +1,42 @@
+{
+  "common": {
+    "ar": "العربية",
+    "en": "الإنجليزية",
+    "home": "الرئيسية",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل"
+  },
+  "navbar": {
+    "home": "الرئيسية",
+    "products": "المنتجات",
+    "categories": "الفئات",
+    "cart": "السلة",
+    "brands": "العلامات التجارية",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+  "cart": {
+    "title": "سلة المشتريات",
+    "remove": "إزالة",
+    "clear": "إفراغ السلة",
+    "each": "لكل قطعة",
+    "orderSummary": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "shippingFree": "مجاني",
+    "total": "الإجمالي",
+    "proceedToCheckout": "إتمام الشراء",
+    "emptyTitle": "سلتك فارغة",
+    "emptyDescription": "يبدو أنك لم تضف أي عناصر بعد.",
+    "continueShopping": "متابعة التسوق",
+    "addressForm": "نموذج العنوان",
+    "yourDetails": "تفاصيلك",
+    "yourPhone": "رقم الهاتف",
+    "yourCity": "المدينة",
+    "submit": "إرسال"
+  }
+}

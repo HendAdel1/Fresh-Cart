@@ -5,10 +5,11 @@ import { CartService } from '../../core/services/cart.service';
 import { CartResponse, ProductCart } from '../../core/models/data.interface';
 import { CurrencyPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe, RouterLink, ReactiveFormsModule],
+  imports: [CurrencyPipe, RouterLink, ReactiveFormsModule, TranslatePipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
