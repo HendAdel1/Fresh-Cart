@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,19 +9,21 @@ import { TranslateService } from '@ngx-translate/core';
 export class LangService {
 
   constructor( private translate: TranslateService,
-    @Inject(PLATFORM_ID) private platformId: string){
+    @Inject(PLATFORM_ID) private platformId: string, private cookieService: CookieService){
       
     this.translate.addLangs(['ar', 'en']);
-    this.translate.use('en');
+    const lang = cookieService.get('lang');
+    this.translate.use(lang  || 'en');
 
     if(isPlatformBrowser(platformId)){
-    this.changeDirection('en');
+    this.changeDirection(lang  || 'en');
 
     }
   }
 
   changeLang(lang: string){
     this.translate.use(lang);
+    this.cookieService.set('lang', lang);
     this.changeDirection(lang);
 
   }
