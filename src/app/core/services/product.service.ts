@@ -28,6 +28,20 @@ export class ProductService {
     )
   }
 
+   getAllProductsPage({ limit = 80, page = 1 }: PaginationParameter): Observable<Response<Product>> {
+    return this.http.get<Response<Product>>(`${environment.baseUrl}/products?limit=${limit}&page=${page}`
+    ).pipe(
+      map(res => {
+        return {
+          ...res,
+          products: res.data
+        }
+      })
+    )
+  }
+  
+  
+
  newGetProducts( price: string , page = 1 ): Observable<Response<Product>> {
     return this.http.get<Response<Product>>(`${environment.baseUrl}/products?limit=40&page=${page}&price[gte]=${price}`
     ).pipe(
