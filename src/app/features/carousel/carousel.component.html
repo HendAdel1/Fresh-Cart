@@ -1,0 +1,65 @@
+<div
+  class="relative w-full overflow-hidden group rounded-2xl shadow-lg"
+  (mouseenter)="stopAutoSlide()"
+  (mouseleave)="startAutoSlide()"
+>
+  <!-- Slides -->
+  <div
+    class="flex transition-transform duration-700 ease-in-out"
+    [style.transform]="'translateX(-' + currentSlide * 100 + '%)'"
+  >
+    @for (category of categories; track category._id) {
+      <div class="min-w-full relative">
+        <img
+          [src]="category.image"
+          [alt]="category.name"
+          class="w-full h-[550px] object-cover rounded-2xl"
+        />
+
+        <!-- Gradient overlay + text at left -->
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent flex items-center"
+        >
+          <div class="ps-30 text-left max-w-lg">
+            <h2 class="text-white text-4xl font-extrabold mb-2 drop-shadow-md">
+              {{ category.name }}
+            </h2>
+            <p class="text-gray-200 text-lg">
+              Discover our delicious {{ category.name.toLowerCase() }} selection today.
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Navigation Buttons -->
+  <button
+    type="button"
+    (click)="prevSlide()"
+    class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white rounded-full p-3 hover:bg-opacity-70 transition hidden group-hover:flex items-center justify-center"
+  >
+    <i class="fa-solid fa-chevron-left text-lg"></i>
+  </button>
+
+  <button
+    type="button"
+    (click)="nextSlide()"
+    class="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white rounded-full p-3 hover:bg-opacity-70 transition hidden group-hover:flex items-center justify-center"
+  >
+    <i class="fa-solid fa-chevron-right text-lg"></i>
+  </button>
+
+  <!-- Dots -->
+  <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex space-x-2">
+    @for (category of categories; let i = $index; track category._id) {
+      <button
+        type="button"
+        (click)="goToSlide(i)"
+        class="w-3.5 h-3.5 rounded-full transition-all duration-300"
+        [class.bg-main]="currentSlide === i"
+        [class.bg-gray-300]="currentSlide !== i"
+      ></button>
+    }
+  </div>
+</div>

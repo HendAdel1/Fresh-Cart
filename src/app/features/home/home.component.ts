@@ -6,10 +6,11 @@ import { Category, Product } from '../../core/models/data.interface';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CarouselComponent } from "../carousel/carousel.component";
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, ProductCardComponent, CarouselModule],
+  imports: [CommonModule, ProductCardComponent, CarouselModule, CarouselComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
