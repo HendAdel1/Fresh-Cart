@@ -3,6 +3,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,9 @@ export class LoginComponent {
     { name: 'password', label: 'Password', type: 'password' },
   ];
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,
+       private cookieService: CookieService
+) { }
   passwordVisible: Record<string, boolean> = {
     password: false,
   };
@@ -55,26 +58,28 @@ export class LoginComponent {
   }
 
   login(value: any) {
-    this.isLoading = true;
-    this.errorMsg = "";
+  this.isLoading = true;
+  this.errorMsg = "";
 
-    const body = {
-      email: value.email,
-      password: value.password,
-    };
+  const body = {
+    email: value.email,
+    password: value.password,
+  };
 
-    this.authService.login(body).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        localStorage.setItem('token', response.token);
-        this.authService.decodedToken(response.token);
-        this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        this.errorMsg = error?.error?.message || 'Something went wrong. Please try again.';
-      }
-    });
+  this.authService.login(body).subscribe({
+    next: (response) => {
+      this.isLoading = false;
+
+      this.cookieService.set('token', response.token, { path: '/', sameSite: 'Lax' });
+
+      this.authService.decodedToken(response.token);
+      this.router.navigate(['/home']); 
+    },
+    error: (error) => {
+      this.isLoading = false;
+      this.errorMsg = error?.error?.message || 'Something went wrong. Please try again.';
+    }
+  });
   }
 
 

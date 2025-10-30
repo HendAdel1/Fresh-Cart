@@ -10,6 +10,7 @@ import { headerInterceptor } from './core/interceptors/header-interceptor';
 import { loaderInterceptor } from './core/interceptors/loader-interceptor';
 import {provideTranslateService, provideTranslateLoader} from "@ngx-translate/core";
 import {provideTranslateHttpLoader} from "@ngx-translate/http-loader";
+import { CookieService } from 'ngx-cookie-service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,5 +37,6 @@ export const appConfig: ApplicationConfig = {
       closeButton: true,
       preventDuplicates: true
     }),
+    CookieService
   ]
 };

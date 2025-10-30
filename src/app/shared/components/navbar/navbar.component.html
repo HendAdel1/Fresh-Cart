@@ -46,13 +46,21 @@
           <a routerLink="cart"><i class="fa-solid fa-cart-shopping mx-3"></i></a>
         }
          
-       @if(!isLogin){
-         @for (page of authPages; track $index) {
-        <li>
-          <a routerLinkActive="text-main" [routerLink]="page.path" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 desktop:hover:bg-transparent desktop:border-0 desktop:hover:text-green-700 desktop:p-0 dark:text-white desktop:dark:hover:text-main dark:hover:bg-gray-700 dark:hover:text-white desktop:dark:hover:bg-transparent">{{page.title}}</a>
-        </li>
-        }
-       }
+      <ul class="flex gap-4 items-center">
+  @if (!isLogin) {
+    @for (page of authPages; track $index) {
+      <li>
+        <a
+          routerLinkActive="text-main"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="page.path"
+          class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 desktop:hover:bg-transparent desktop:border-0 desktop:hover:text-green-700 desktop:p-0 dark:text-white desktop:dark:hover:text-main dark:hover:bg-gray-700 dark:hover:text-white desktop:dark:hover:bg-transparent">
+          {{ page.title | translate }}
+        </a>
+      </li>
+    }
+  }
+</ul>
 
        
         @if (isLogin) {

@@ -1,1 +1,28 @@
-<p>categories works!</p>
+<div class="container mx-auto p-6">
+  <h2 class="text-3xl font-bold mb-8 text-gray-800">Categories</h2>
+
+  @if (isLoading) {
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      @for (item of skeletons; track $index) {
+        <div class="animate-pulse bg-gray-200 h-48 rounded-xl"></div>
+      }
+    </div>
+  } @else {
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      @for (category of categories; track category._id) {
+        <div
+          class="border border-gray-200 hover:border-main transition-all duration-200 rounded-xl overflow-hidden hover:shadow-lg cursor-pointer"
+        >
+          <img
+            [src]="category.image"
+            [alt]="category.name"
+            class="h-48 w-full object-cover"
+          />
+          <div class="p-3 text-center">
+            <h3 class="font-medium text-gray-800">{{ category.name }}</h3>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

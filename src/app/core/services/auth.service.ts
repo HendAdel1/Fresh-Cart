@@ -5,8 +5,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
-type DecodedUser = { id: string, name: string, role: string};
+type DecodedUser = { id: string; name: string; role: string };
+
 export interface UserData {
   name: string;
   email: string;
@@ -24,37 +26,38 @@ export interface UserDataLogin {
   providedIn: 'root'
 })
 export class AuthService {
-
   userDataDecoded = new BehaviorSubject<DecodedUser | null>(null);
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: any, private router: Router) {
-
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {
     if (isPlatformBrowser(this.platformId)) {
-      const token = localStorage.getItem('token');
-
+      const token = this.cookieService.get('token');
       if (token) {
-        this.decodedToken(token)
+        this.decodedToken(token);
       }
     }
   }
 
-
   register(data: UserData): Observable<any> {
-    return this.http.post(`${environment.baseUrl}/auth/signup`, data)
+    return this.http.post(`${environment.baseUrl}/auth/signup`, data);
   }
 
   login(data: UserDataLogin): Observable<any> {
-    return this.http.post(`${environment.baseUrl}/auth/signin`, data)
+    return this.http.post(`${environment.baseUrl}/auth/signin`, data);
   }
 
   decodedToken(token: string) {
     const decoded = jwtDecode<DecodedUser>(token);
     this.userDataDecoded.next(decoded);
-      return decoded;
+    return decoded;
   }
 
-  logOut(){
-    localStorage.removeItem('token');
+  logOut() {
+    this.cookieService.delete('token', '/');
     this.userDataDecoded.next(null);
     this.router.navigate(['/login']);
   }
